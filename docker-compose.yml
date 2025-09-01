@@ -1,0 +1,26 @@
+
+services:
+  backend:
+    build: backend/
+    container_name: backend
+    volumes:
+      - ./tables:/tmp/tables
+    ports:
+      - 8080:80
+    networks:
+      - app
+
+  frontend:
+    build: frontend/
+    container_name: frontend
+    ports:
+      - 8500:8500
+    depends_on:
+      - backend
+    restart: always
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
